@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Kay Mama</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            text-align: center;
+            color: #fff;
+            padding: 50px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(45deg, rgba(255, 0, 0, 0.3) 0px, rgba(255, 0, 0, 0.3) 10px, transparent 10px, transparent 20px),
+                        repeating-linear-gradient(-45deg, rgba(255, 105, 180, 0.3) 0px, rgba(255, 105, 180, 0.3) 10px, transparent 10px, transparent 20px),
+                        radial-gradient(circle, rgba(255, 192, 203, 0.3) 20%, transparent 60%);
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        .quote {
+            font-style: italic;
+            font-size: 1.2em;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        button {
+            background: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #e65c50;
+        }
+        .gallery {
+            margin-top: 30px;
+            position: relative;
+        }
+        .gallery video {
+            max-width: 100%;
+            height: 300px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .nav-buttons {
+            margin-top: 10px;
+        }
+        .heart {
+            position: absolute;
+            color: green;
+            font-size: 24px;
+            animation: floatUp 2s ease-in-out;
+        }
+        @keyframes floatUp {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-100vh);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Valentine's Day, Mama!</h1>
+        <p id="quote" class="quote"></p>
+        <button onclick="showQuote()">Show a Loving Quote</button>
+        
+        <div class="gallery">
+            <video id="galleryVideo" controls>
+                <source src="video1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="nav-buttons">
+                <button onclick="prevVideo(event)">Previous</button>
+                <button onclick="nextVideo(event)">Next</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const quotes = [
+            "A son's first love is his mother",
+            "A mother's love doesn't make her son more dependent and timid; it actually makes him stronger and more independent",
+            "I know I didn't always make it easy on you, pero salamat sobra dahil kahit lagi tayong magkaaway, andyan ka parati.",
+            "Mahal na mahal kita, Marinela Cruz. Kung papapiliin ako ng ibang nanay, ikaw parin pipiilin ko sana alam mo yun"
+        ];
+        
+        function showQuote() {
+            const quoteElement = document.getElementById("quote");
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            quoteElement.textContent = randomQuote;
+            quoteElement.style.opacity = "1";
+            createHeartAnimation();
+        }
+        
+        const videos = ["mama1.mp4", "mama2.mp4"];
+        let currentVideoIndex = 0;
+        
+        function createHeartAnimation() {
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.innerHTML = "💚";
+                document.body.appendChild(heart);
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.top = `${Math.random() * 100}vh`;
+                setTimeout(() => heart.remove(), 2000);
+            }
+        }
+        
+        function prevVideo(event) {
+            currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
+            document.getElementById("galleryVideo").src = videos[currentVideoIndex];
+            createHeartAnimation();
+        }
+        
+        function nextVideo(event) {
+            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+            document.getElementById("galleryVideo").src = videos[currentVideoIndex];
+            createHeartAnimation();
+        }
+    </script>
+</body>
+</html>
